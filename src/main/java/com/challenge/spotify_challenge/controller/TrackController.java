@@ -5,10 +5,7 @@ import com.challenge.spotify_challenge.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/codechallenge")
@@ -22,5 +19,15 @@ public class TrackController {
         return trackService.getTrackMetadata(isrc)
             .map(track -> ResponseEntity.ok(track))
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @PostMapping("/createTrack")
+    public ResponseEntity createTrack(@RequestParam String isrc) {
+        try {
+            trackService.createTrack(isrc);
+            return ResponseEntity.status(HttpStatus.CREATED.value()).body("Track created successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(e.getMessage());
+        }
     }
 }
