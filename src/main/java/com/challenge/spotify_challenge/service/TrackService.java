@@ -1,8 +1,11 @@
 package com.challenge.spotify_challenge.service;
 
+import com.challenge.spotify_challenge.client.SpotifyService;
 import com.challenge.spotify_challenge.entity.Track;
 import com.challenge.spotify_challenge.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,22 +18,22 @@ public class TrackService {
     @Autowired
     private TrackRepository trackRepository;
 
+    @Autowired
+    private SpotifyService spotifyService;
+
     public Optional<Track> getTrackMetadata(String isrc) {
         return trackRepository.findByIsrc(isrc);
     }
 
     public void createTrack(String isrc) throws Exception {
+        Map<String, Object> trackData = spotifyService.getTrackMetadata(isrc);
+        if (trackData.isEmpty()) {
+            throw new Exception("Track not found.");
+        }
+
         if (trackRepository.findByIsrc(isrc).isPresent()) {
             throw new Exception("Track already exists.");
         }
-
-        Map<String, Object> trackData = new HashMap<>();
-        trackData.put("name", "track name");
-        trackData.put("artistName", "artist name");
-        trackData.put("albumName", "albumName");
-        trackData.put("albumId", "albumId");
-        trackData.put("isExplicit", false);
-        trackData.put("playbackSeconds", 10);
 
         Track track = Track.builder()
             .isrc(isrc)
