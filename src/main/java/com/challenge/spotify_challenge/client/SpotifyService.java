@@ -1,5 +1,6 @@
 package com.challenge.spotify_challenge.client;
 
+import com.challenge.spotify_challenge.config.SpotifyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -16,20 +17,21 @@ import java.util.Map;
 @Service
 public class SpotifyService {
 
-    private static final String BASE_URL = "https://api.spotify.com/v1";
-    private static final String TOKEN = "YOUR_SPOTIFY_ACCESS_TOKEN";
-
     private final RestTemplate restTemplate;
+    private final String baseUrl;
+    private final String token;
 
     @Autowired
-    public SpotifyService(RestTemplateBuilder restTemplateBuilder) {
+    public SpotifyService(SpotifyConfig spotifyConfig, RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
+        baseUrl = spotifyConfig.getBaseUrl();
+        token = spotifyConfig.getToken();
     }
 
     public Map<String, Object> getTrackMetadata(String isrc) {
-        String url = BASE_URL + "/search?q=isrc:" + isrc + "&type=track";
+        String url = baseUrl + "/search?q=isrc:" + isrc + "&type=track";
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(TOKEN);
+        headers.setBearerAuth(token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
@@ -58,9 +60,9 @@ public class SpotifyService {
     }
 
     public Map<String, Object> getAlbumCover(String albumId) {
-        String url = BASE_URL + "/albums/" + albumId;
+        String url = baseUrl + "/albums/" + albumId;
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(TOKEN);
+        headers.setBearerAuth(token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);

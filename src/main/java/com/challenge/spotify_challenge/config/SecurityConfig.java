@@ -14,10 +14,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final DBConfig dbConfig;
+
+    public SecurityConfig(DBConfig dbConfig) {
+        this.dbConfig = dbConfig;
+    }
+
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        UserDetails user = User.withUsername("user")
-            .password("{noop}password")
+        UserDetails user = User.withUsername(dbConfig.getUserName())
+            .password("{noop}" + dbConfig.getPassword())
             .roles("USER")
             .build();
         return new InMemoryUserDetailsManager(user);
