@@ -3,9 +3,12 @@ package com.challenge.spotify_challenge.service;
 import com.challenge.spotify_challenge.client.SpotifyService;
 import com.challenge.spotify_challenge.entity.Track;
 import com.challenge.spotify_challenge.repository.TrackRepository;
+import com.challenge.spotify_challenge.util.ImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,6 +35,8 @@ public class TrackService {
             throw new Exception("Track not found.");
         }
 
+        Map<String, Object> coverData = spotifyService.getAlbumCover((String) trackData.get("albumId"));
+
         Track track = Track.builder()
             .isrc(isrc)
             .name((String) trackData.get("name"))
@@ -40,8 +45,22 @@ public class TrackService {
             .albumId((String) trackData.get("albumId"))
             .isExplicit((Boolean) trackData.get("isExplicit"))
             .playbackSeconds((Integer) trackData.get("playbackSeconds"))
+            .coverImageUrl((String) coverData.get("url"))
             .build();
         trackRepository.save(track);
     }
 
+    public byte[] getCover(String isrc) throws Exception {
+        Optional<Track> track = trackRepository.findByIsrc(isrc);
+        if(track.isEmpty()) {
+            throw new Exception("Track not found.");
+        } else {
+            try {
+                URL url = new URL(track.get().getCoverImageUrl());
+                return ImageConverter.convertImageByte(url);
+            } catch (IOException e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
 }

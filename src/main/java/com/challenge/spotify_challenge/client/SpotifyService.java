@@ -1,7 +1,6 @@
 package com.challenge.spotify_challenge.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -56,6 +55,18 @@ public class SpotifyService {
         trackMetaData.put("isExplicit", explicit);
         trackMetaData.put("playbackSeconds", duration_ms / 1000);
         return trackMetaData;
+    }
+
+    public Map<String, Object> getAlbumCover(String albumId) {
+        String url = BASE_URL + "/albums/" + albumId;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(TOKEN);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
+        Map<String, Object> albumData = (Map<String, Object>) response.getBody();
+        List<Map<String, Object>> images = (List<Map<String, Object>>) albumData.get("images");
+        return images.get(0);
     }
 
 }
