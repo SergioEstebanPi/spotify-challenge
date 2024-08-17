@@ -32,10 +32,10 @@ public class TrackController {
         }
     }
 
-    @GetMapping("/getCover")
+    @GetMapping(value="/getCover", produces=MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<?> getCover(@RequestParam String isrc) {
         try {
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(trackService.getCover(isrc));
+            return ResponseEntity.ok().body(trackService.getCover(isrc));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error with the image".getBytes());
         }

@@ -3,10 +3,10 @@ package com.challenge.spotify_challenge.service;
 import com.challenge.spotify_challenge.client.SpotifyService;
 import com.challenge.spotify_challenge.entity.Track;
 import com.challenge.spotify_challenge.repository.TrackRepository;
-import com.challenge.spotify_challenge.util.ImageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -57,7 +57,8 @@ public class TrackService {
         } else {
             try {
                 URL url = new URL(track.get().getCoverImageUrl());
-                return ImageConverter.convertImageByte(url);
+                BufferedInputStream bios = new BufferedInputStream(url.openStream());
+                return bios.readAllBytes();
             } catch (IOException e) {
                 throw new Exception(e.getMessage());
             }
