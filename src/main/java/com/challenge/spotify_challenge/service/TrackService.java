@@ -21,13 +21,18 @@ public class TrackService {
     @Autowired
     private SpotifyService spotifyService;
 
-    public Optional<Track> getTrackMetadata(String isrc) {
+    public Optional<Track> getTrackMetadata(String isrc) throws Exception {
+        Map<String, Object> trackData = spotifyService.getTrackMetadata(isrc);
+        if (trackData.isEmpty()) {
+            throw new Exception("Track not found.");
+        }
         return trackRepository.findByIsrc(isrc);
     }
 
     public void createTrack(String isrc) throws Exception {
-        if (trackRepository.findByIsrc(isrc).isPresent()) {
-            throw new Exception("Track already exists.");
+        Optional<Track> existingTrack = trackRepository.findByIsrc(isrc);
+        if (existingTrack.isPresent()) {
+            return;
         }
 
         Map<String, Object> trackData = spotifyService.getTrackMetadata(isrc);

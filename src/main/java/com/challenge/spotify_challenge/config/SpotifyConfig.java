@@ -13,6 +13,4 @@ public class SpotifyConfig {
     @Value("${spotify.base-url}")
     private String baseUrl;
 
-    @Value("${spotify.token}")
-    private String token;
 }

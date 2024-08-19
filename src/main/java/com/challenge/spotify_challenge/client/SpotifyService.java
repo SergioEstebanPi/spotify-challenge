@@ -1,12 +1,10 @@
 package com.challenge.spotify_challenge.client;
 
 import com.challenge.spotify_challenge.config.SpotifyConfig;
+import com.challenge.spotify_challenge.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,19 +17,19 @@ public class SpotifyService {
 
     private final RestTemplate restTemplate;
     private final String baseUrl;
-    private final String token;
+    private final TokenService tokenService;
 
     @Autowired
-    public SpotifyService(SpotifyConfig spotifyConfig, RestTemplateBuilder restTemplateBuilder) {
+    public SpotifyService(SpotifyConfig spotifyConfig, RestTemplateBuilder restTemplateBuilder, TokenService tokenService) {
         this.restTemplate = restTemplateBuilder.build();
+        this.tokenService = tokenService;
         baseUrl = spotifyConfig.getBaseUrl();
-        token = spotifyConfig.getToken();
     }
 
     public Map<String, Object> getTrackMetadata(String isrc) {
         String url = baseUrl + "/search?q=isrc:" + isrc + "&type=track";
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
+        headers.setBearerAuth(tokenService.getToken("token"));
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
@@ -62,7 +60,7 @@ public class SpotifyService {
     public Map<String, Object> getAlbumCover(String albumId) {
         String url = baseUrl + "/albums/" + albumId;
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
+        headers.setBearerAuth(tokenService.getToken("token"));
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
