@@ -1,0 +1,13 @@
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\client\SpotifyService.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\config\AppConfig.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\config\CustomAuthenticationSuccessHandler.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\config\DBConfig.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\config\SecurityConfig.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\config\SpotifyConfig.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\controller\HomeController.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\controller\TrackController.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\entity\Track.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\repository\TrackRepository.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\service\TokenService.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\service\TrackService.java
+C:\Users\mikol\Documentos\CHALLENGE\proyecto\spotify-challenge\src\main\java\com\challenge\spotify_challenge\SpotifyChallengeApplication.java

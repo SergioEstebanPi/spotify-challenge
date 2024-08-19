@@ -1,0 +1,16 @@
+com\challenge\spotify_challenge\config\SecurityConfig.class
+com\challenge\spotify_challenge\config\AppConfig.class
+com\challenge\spotify_challenge\service\TokenService.class
+com\challenge\spotify_challenge\config\SpotifyConfig.class
+com\challenge\spotify_challenge\controller\HomeController.class
+com\challenge\spotify_challenge\config\SecurityConfig$1.class
+com\challenge\spotify_challenge\config\AppConfig$1.class
+com\challenge\spotify_challenge\config\DBConfig.class
+com\challenge\spotify_challenge\SpotifyChallengeApplication.class
+com\challenge\spotify_challenge\entity\Track$TrackBuilder.class
+com\challenge\spotify_challenge\entity\Track.class
+com\challenge\spotify_challenge\client\SpotifyService.class
+com\challenge\spotify_challenge\controller\TrackController.class
+com\challenge\spotify_challenge\repository\TrackRepository.class
+com\challenge\spotify_challenge\config\CustomAuthenticationSuccessHandler.class
+com\challenge\spotify_challenge\service\TrackService.class
