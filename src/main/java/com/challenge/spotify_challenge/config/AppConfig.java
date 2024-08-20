@@ -1,13 +1,16 @@
 package com.challenge.spotify_challenge.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class AppConfig {
+
+    @Value("${app.front.url}")
+    private String allowedOrigins;
     
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -15,7 +18,7 @@ public class AppConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000") // Allow React app's origin
+                        .allowedOrigins(allowedOrigins) // Allow React app's origin
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);

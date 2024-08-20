@@ -24,6 +24,10 @@ Before running the application, ensure you have the following installed:
 - JDK 11 or higher
 - Maven
 
+# Swagger url
+
+http://localhost:8080/swagger-ui/index.html
+
 ## Getting Started
 
 ### 1. Clone the Repository

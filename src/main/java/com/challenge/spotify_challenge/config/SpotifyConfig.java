@@ -16,6 +16,6 @@ public class SpotifyConfig {
     @Value("${app.base.url}")
     private String appBaseUrl;
 
-    @Value("${app.front.url}")
+    @Value("${app.front.url.search}")
     private String appFrontUrl;
 }
