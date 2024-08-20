@@ -16,10 +16,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private final TokenService tokenService;
     private final OAuth2AuthorizedClientService authorizedClientService;
+    private final SpotifyConfig spotifyConfig;
 
-    public CustomAuthenticationSuccessHandler(TokenService tokenService, OAuth2AuthorizedClientService authorizedClientService) {
+    public CustomAuthenticationSuccessHandler(TokenService tokenService, OAuth2AuthorizedClientService authorizedClientService, SpotifyConfig spotifyConfig) {
         this.authorizedClientService = authorizedClientService;
         this.tokenService = tokenService;
+        this.spotifyConfig = spotifyConfig;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 tokenService.saveToken("token", accessToken);
                 request.getSession().setAttribute("accessToken", accessToken);
             }
-            response.sendRedirect("http://localhost:3000/search");
+            response.sendRedirect(spotifyConfig.getAppFrontUrl());
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to obtain access token");
         }

@@ -13,4 +13,9 @@ public class SpotifyConfig {
     @Value("${spotify.base-url}")
     private String baseUrl;
 
+    @Value("${app.base.url}")
+    private String appBaseUrl;
+
+    @Value("${app.front.url}")
+    private String appFrontUrl;
 }
